@@ -57,7 +57,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     "api",
     "rest_framework",
-    "corsheaders"
+    "corsheaders",
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -144,5 +145,13 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "suited-severely-boa.ngrok-free.app"
+]
+
+CORS_ALLOW_ALL_ORIGINS = True 
 CORS_ALLOWS_CREDENTIALS = True
+
+AUTH_USER_MODEL = 'api.User'  # Ensure it exactly matches the app and model name
+

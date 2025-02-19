@@ -5,17 +5,12 @@ from .models import User, Administrator, Employee, Salary, Trip, Vehicle, Salary
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ['id', 'username', 'password', 'cellphone_no', 'email', 'philhealth_no', 'pag_ibig_no', 'sss_no']
-        extra_kwargs = {'password': {'write_only': True}}
-    
-    def create(self, validated_data):
-        user = User.objects.create_user(**validated_data)
-        return user
+        fields = ['id', 'username', 'email', 'role']
 
 # Administrator Serializer
 class AdministratorSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    
+
     class Meta:
         model = Administrator
         fields = ['admin_id', 'user', 'salary_report']
@@ -23,31 +18,31 @@ class AdministratorSerializer(serializers.ModelSerializer):
 # Employee Serializer
 class EmployeeSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    
+
     class Meta:
         model = Employee
-        fields = ['employee_id', 'user', 'trip', 'salary', 'employee_type']
+        fields = ['employee_id', 'user']
 
 # Salary Serializer
 class SalarySerializer(serializers.ModelSerializer):
     class Meta:
         model = Salary
-        fields = ['salary_id', 'trip', 'deductions', 'bonuses', 'base_salary', 'multipliers', 'overtime', 'additionals']
+        fields = '__all__'
 
 # Trip Serializer
 class TripSerializer(serializers.ModelSerializer):
     class Meta:
         model = Trip
-        fields = ['trip_id', 'vehicle', 'destination', 'distance_traveled', 'num_of_drops', 'curr_drops', 'client_info', 'start_date', 'end_date']
+        fields = '__all__'
 
 # Vehicle Serializer
 class VehicleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vehicle
-        fields = ['vehicle_id', 'vehicle_type']
+        fields = '__all__'
 
 # Salary Report Serializer
 class SalaryReportSerializer(serializers.ModelSerializer):
     class Meta:
         model = SalaryReport
-        fields = ['salary_report_id', 'employee', 'salary']
+        fields = '__all__'
